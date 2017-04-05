@@ -176,6 +176,7 @@
       real*8 pKaHO1
       integer zpolHO2
       real*8 pKaHO2
+      real*8 kaibeta
       real*8 kaiHO
       real*8 kaiHI
       real*8 decouple

@@ -395,17 +395,17 @@ c      enddo
        enddo
        enddo
 
-       do iZ = int(zring3-80), int(zring3)
-       do iR = 1, dimR
-
-       if(abs((2*iR-iZ)-(2*xring3-zring3)).le.2)
-     & then
-       matriz(iR, iZ) = -3
-       ncells = ncells - 1
-       endif
-
-       enddo
-       enddo
+!       do iZ = int(zring3-80), int(zring3)
+!       do iR = 1, dimR
+!
+!       if(abs((2*iR-iZ)-(2*xring3-zring3)).le.2)
+!     & then
+!       matriz(iR, iZ) = -3
+!       ncells = ncells - 1
+!       endif
+!
+!       enddo
+!       enddo
 
        endselect
 

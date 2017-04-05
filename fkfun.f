@@ -216,7 +216,7 @@ C-----------------------------------------------------
                         xpot(im,iC) = xpot(im,iC) +
      &                       (st_matrix(hydroph(im),ii) ! st_matrix(x, y) : interaction of hydrophobic segments of type x with those of type y ( should be diagonal)
      &                       *hfactor*st/(vsol*vpol)*           ! st in kT/monomer          
-     &                       Xulist_value(3, iC, jj)*
+     &                       Xulist_value(2, iC, jj)*
 !     &                       Xulist_value(ii, iC, jj)*
      &                       xtotal(ii, Xulist_cell(ii, iC, jj)))
 
@@ -235,8 +235,8 @@ C-----------------------------------------------------
                  aveP(iC) = aveP(iC) +
      &                      (Xulist_value(1, iC, jj)*
      &                      (dfloat(indexa(iC,1))-0.5)*
-     &                      (xtotal(1, Xulist_cell(1, iC, jj))+
-     &                      decouple*xtotal(2, Xulist_cell(2, iC, jj))))
+     &                      (xtotal(1, Xulist_cell(1, iC, jj))))
+!     &                      decouple*xtotal(2, Xulist_cell(2, iC, jj))))
 !                 aveC(iC) = aveC(iC) +
 !     &                      (Xulist_value(1, iC, jj)*
 !     &                      qtot_amp(Xulist_cell(1, iC, jj)))
@@ -254,7 +254,7 @@ C-----------------------------------------------------
                  Fpair_tot_ref = -Rpair_ref*dlog(Rpair_ref)
      &               -(1-Rpair_ref)*dlog(1-Rpair_ref)
      &               +Rpair_ref*Fpair_ref
-     &               +0.5*Rpair_ref*(dlog(Rpair_ref)-1)
+     &               +0.5*Rpair_ref*(dlog(Rpair_ref)-1)+Rpair_ref
                  hdistance =sqrt(dfloat(indexa(iC,1))**2
      &               +(dfloat(indexa(iC,2))-0.5*dimZ-20)**2)
                  Fpair(iC) = 0.5*(pairst*hfactor
@@ -265,57 +265,57 @@ C-----------------------------------------------------
      &               -(1-Rpair(iC))*dlog(1-Rpair(iC))
      &               +Rpair(iC)*Fpair(iC)
      &               +0.5*Rpair(iC)*(dlog(Rpair(iC))-1)
-     &               -Fpair_tot_ref
+     &               -Fpair_tot_ref+Rpair(iC)
                  xpot(im,iC)=xpot(im,iC)+Fpair_tot(iC)
                  endif
                endif
 
-               if(hydroph(im).eq.2) then
+!               if(hydroph(im).eq.2) then
 
-                 aveP(iC) = 0.0
-!                 aveC(iC) = 0.0
-                 avePnorm = 0.0
-
-                 do jj = 1, nXu(2, iC) ! loop over kai neighbors
-                 avePnorm = avePnorm + Xulist_value(2, iC, jj)
-     &                      *(dfloat(indexa(iC,1))-0.5)
-                 aveP(iC) = aveP(iC) +
-     &                      (Xulist_value(2, iC, jj)*
-     &                      (dfloat(indexa(iC,1))-0.5)*
-     &                      (xtotal(2, Xulist_cell(2, iC, jj))+
-     &                      decouple*xtotal(1, Xulist_cell(1, iC, jj))))
-!                 aveC(iC) = aveC(iC) +
-!     &                      (Xulist_value(1, iC, jj)*
-!     &                      qtot_amp(Xulist_cell(1, iC, jj)))
-                 enddo
-                 aveP(iC) = aveP(iC)/avePnorm
-!                 aveC(iC) = aveC(iC)/avePnorm
-
-!                 aveP(iC) = xtotal(1,iC)  ! +decouple*xtotal(2,iC)
-
-                 if(aveP(iC).gt.0) then
-                 Spair(iC) = dlog(pairsize*aveP(iC))
-                 Fpair_ref = 0.5*(0.0+Spair(iC))
-                 Rpair_ref = (0.5*(sqrt(dexp(-2.0*Fpair_ref)+4.0)
-     &               -dexp(-Fpair_ref)))**2
-                 Fpair_tot_ref = -Rpair_ref*dlog(Rpair_ref)
-     &               -(1-Rpair_ref)*dlog(1-Rpair_ref)
-     &               +Rpair_ref*Fpair_ref
-     &               +0.5*Rpair_ref*(dlog(Rpair_ref)-1)
-                 hdistance =sqrt(dfloat(indexa(iC,1))**2
-     &               +(dfloat(indexa(iC,2))-0.5*dimZ-20)**2)
-                 Fpair(iC) = 0.5*(pairst*hfactor
-     &               +Spair(iC))
-                 Rpair(iC) = (0.5*(sqrt(dexp(-2*Fpair(iC))+4.0)
-     &               -dexp(-Fpair(iC))))**2
-                 Fpair_tot(iC) = -Rpair(iC)*dlog(Rpair(iC))
-     &               -(1-Rpair(iC))*dlog(1-Rpair(iC))
-     &               +Rpair(iC)*Fpair(iC)
-     &               +0.5*Rpair(iC)*(dlog(Rpair(iC))-1)
-     &               -Fpair_tot_ref
-                 xpot(im,iC)=xpot(im,iC)+Fpair_tot(iC)
-                 endif
-               endif
+!                 aveP(iC) = 0.0
+!!                 aveC(iC) = 0.0
+!                 avePnorm = 0.0
+!
+!                 do jj = 1, nXu(2, iC) ! loop over kai neighbors
+!                 avePnorm = avePnorm + Xulist_value(2, iC, jj)
+!     &                      *(dfloat(indexa(iC,1))-0.5)
+!                 aveP(iC) = aveP(iC) +
+!     &                      (Xulist_value(2, iC, jj)*
+!     &                      (dfloat(indexa(iC,1))-0.5)*
+!     &                      (xtotal(2, Xulist_cell(2, iC, jj))+
+!     &                      decouple*xtotal(1, Xulist_cell(1, iC, jj))))
+!!                 aveC(iC) = aveC(iC) +
+!!     &                      (Xulist_value(1, iC, jj)*
+!!     &                      qtot_amp(Xulist_cell(1, iC, jj)))
+!                 enddo
+!                 aveP(iC) = aveP(iC)/avePnorm
+!!                 aveC(iC) = aveC(iC)/avePnorm
+!
+!!                 aveP(iC) = xtotal(1,iC)  ! +decouple*xtotal(2,iC)
+!
+!                 if(aveP(iC).gt.0) then
+!                 Spair(iC) = dlog(pairsize*aveP(iC))
+!                 Fpair_ref = 0.5*(0.0+Spair(iC))
+!                 Rpair_ref = (0.5*(sqrt(dexp(-2.0*Fpair_ref)+4.0)
+!     &               -dexp(-Fpair_ref)))**2
+!                 Fpair_tot_ref = -Rpair_ref*dlog(Rpair_ref)
+!     &               -(1-Rpair_ref)*dlog(1-Rpair_ref)
+!     &               +Rpair_ref*Fpair_ref
+!     &               +0.5*Rpair_ref*(dlog(Rpair_ref)-1)
+!                 hdistance =sqrt(dfloat(indexa(iC,1))**2
+!     &               +(dfloat(indexa(iC,2))-0.5*dimZ-20)**2)
+!                 Fpair(iC) = 0.5*(pairst*hfactor
+!     &               +Spair(iC))
+!                 Rpair(iC) = (0.5*(sqrt(dexp(-2*Fpair(iC))+4.0)
+!     &               -dexp(-Fpair(iC))))**2
+!                 Fpair_tot(iC) = -Rpair(iC)*dlog(Rpair(iC))
+!     &               -(1-Rpair(iC))*dlog(1-Rpair(iC))
+!     &               +Rpair(iC)*Fpair(iC)
+!     &               +0.5*Rpair(iC)*(dlog(Rpair(iC))-1)
+!     &               -Fpair_tot_ref
+!                 xpot(im,iC)=xpot(im,iC)+Fpair_tot(iC)
+!                 endif
+!               endif
 
 
       endif ! hydrophob

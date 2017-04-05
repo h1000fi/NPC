@@ -262,33 +262,69 @@ C*************************************************************
       include 'mpif.h'
       include 'MPI.h'
 
-      character*100 filename 
+      character*100 filename,filename2
       integer i, nseq, j
+      character(1) aacode
 
-          write(filename,'(A15, I3.3, A4)') 'polymer_6color_',i,'.txt'  
+      write(filename,'(A15, I3.3, A4)') 'polymer_aaCode_',i,'.txt'  
+      write(filename2,'(A15, I3.3, A4)') 'polymer_coarse_',i,'.txt'
 
       open(unit=2110+i,file=filename)
+      open(unit=3110+i,file=filename2)
           
           !print*, filename, i, 'opened'
           
           read(2110+i, *), nseq
+          write(3110+i, *), nseq
 c          print*, 'nseq', nseq
-          
-          if (nseq.eq.long(i)) then 
-                do j=1,long(i)
-                        read(2110+i, *), segtype(i,j) 
-                enddo
-          else
-                long(i)=nseq
-                do j=1,long(i)
-                        read(2110+i, *), segtype(i,j)
-                enddo
-                !print*, 'Error in sequence file', 2110+i
-                !call MPI_FINALIZE(ierr) ! finaliza MPI
-                !stop
-          endif
+
+          long(i)=nseq          
+          do j=1,long(i)
+            read(2110+i, *), aacode
+            if(aacode .eq. 'f') then
+              if(j.lt.3) then
+                segtype(i,j) = 1
+                write(3110+i, *), segtype(i,j)
+              elseif(segtype(i,j-2).eq.1) then
+                segtype(i,j) = 3
+                write(3110+i, *), segtype(i,j)
+              else
+                segtype(i,j) = 1
+                write(3110+i, *), segtype(i,j)
+              endif
+            elseif((aacode.eq.'g').or.(aacode.eq.'q').or.
+     &      (aacode.eq.'n').or.(aacode.eq.'t')) then
+              segtype(i,j) = 2
+              write(3110+i, *), segtype(i,j)
+            elseif((aacode.eq.'a').or.(aacode.eq.'l').or.
+     &      (aacode.eq.'w').or.(aacode.eq.'i').or.(aacode.eq.'y')) then
+              segtype(i,j) = 3
+              write(3110+i, *), segtype(i,j)
+            elseif((aacode.eq.'m').or.(aacode.eq.'s').or.
+     &      (aacode.eq.'p').or.(aacode.eq.'v')) then
+              segtype(i,j) = 4
+              write(3110+i, *), segtype(i,j)
+            elseif((aacode.eq.'k').or.(aacode.eq.'r')) then
+              segtype(i,j) = 5
+              write(3110+i, *), segtype(i,j)
+            elseif((aacode.eq.'d').or.(aacode.eq.'e')) then
+              segtype(i,j) = 6
+              write(3110+i, *), segtype(i,j)
+            elseif(aacode.eq.'c') then
+              segtype(i,j) = 7
+              write(3110+i, *), segtype(i,j)
+            elseif(aacode.eq.'h') then
+              segtype(i,j) = 8
+              write(3110+i, *), segtype(i,j)
+            else
+              print*, 'Error in sequence file', 2110+i
+              call MPI_FINALIZE(ierr) ! finaliza MPI
+              stop
+            endif
+          enddo
 
           close(2110+i) 
+          close(3110+i)
           
           return 
       end

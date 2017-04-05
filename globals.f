@@ -154,6 +154,10 @@
            read(buffer, *, iostat=ios) pKaHO2
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
+        case ('kaibeta')
+           read(buffer, *, iostat=ios) kaibeta
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
         case ('kaiHO')
            read(buffer, *, iostat=ios) kaiHO
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)

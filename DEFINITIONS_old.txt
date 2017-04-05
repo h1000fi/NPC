@@ -15,51 +15,23 @@
 ! 11: hour-glass like (following Orit's notes). pore length: CdimZ, minimum pore radius: CdimR, minimum base of trapezoid: CdimZmin
 ! 12: cylindrical (following Orit's notes). pore length: CdimZ, pore radius: CdimR
 !
-poretype 14
+poretype 12
 ! 1: old cadenas routine, 2: MK's new cadenas routine
 cadenastype 2
 !----------------------------------- System size --------------------
 ! system total size is dimR x dimZ
-dimR 200 !200
-dimZ 400 !400
+dimR 500 !500
+dimZ 1400 !1400
 ! discretization step, use delta = 0.5 as default
 delta 0.5
 ! segment length
 lseg 0.38
-innerx 8
-innerr 0
-outerx -3
-outerz 20
-outerr 7
-kaibeta 0.6
-kaiHO 1
-kaiHI -1 !-1.5
-paircut 1.0
-pairst 2.5
-pairsize 10
-Vstart 0.0000001
-Vend   0.00000009
-Vstep 1.5
-polyCov 8
-kC 0 !100
-!kp 0.4
-oval 0.5
-hcenter 0
-hside 10
-Dwall 52 !160
-decouple 1.0
-tol 0.000001 !0.000000001
-! hamiltonian guess 1:wall-center 2:wall 3:center 4:Ghavami MD phase 5:wall-upcenter
-hguess 1
 ! number of conformations (is the same for all chains)
-cuantas 1000000
-kBias 0.1 !0.5
-Rbias 0.0
-Zbias 0.0
+cuantas 3000
 ! minimum pore radius, see pore type
-CdimR 80 !36
+CdimR 6 !32
 ! pore length, see above
-CdimZ 52 !72
+CdimZ 24 !72
 ! base of the trapezoid in hour glass like, see above
 CdimZmin 56
 ! base of the cylindrical pore, see above
@@ -76,7 +48,7 @@ savetodisk_type 1
 !save to disk 0:all, 1:only avpol total, 2:avpol sum over all monomers for a
 given chain, 3: avpol for different chains and different monomers 5: avpol
 x-ions phi f and protein 10: nothing 11: avpol+poten+protC#
-savetodisk_flag 0
+savetodisk_flag 11
 ! set to a very large value to avoid resume file
 save_every 5000 
 ! saveindex
@@ -114,17 +86,16 @@ st 1
 ! surface coverage, sigma, not in use for NPC
 sigma 0
 ! maxlong
-maxlong 857 !150
+maxlong 857
 !readseed
-readseed 1
+readseed 123
 !-------------------------------- protein -------------------------------
 ! protein type 1=sphere 2=cylinder
 Ptype 1
 ! Protein position in delta units
-Ppos 20
+Ppos 550
 ! protein radius in delta units
-PdimR 2
-!PdimH 1
+PdimR 10
 ! protein internal volume fraction in delta units, prot_vol = 0 for no protein
 prot_vol 0 !0.95
 ! protein charge, prot_q = 0 for no charge
