@@ -89,6 +89,19 @@ C----------------------------------------------------------
       write(title,'(A5)')'hphil'
       call savetodisk(avpol_temp, title, cc ,ccc)
 
+! all monomer types
+
+      do j = 1, N_monomer
+
+         do ii = 1, N_chains
+         avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
+         enddo
+
+      write(title,'(A4, I1.1)')'type',j
+      call savetodisk(avpol_temp, title, cc ,ccc)
+
+      enddo ! j
+
 ! pos, neg, neutral
 
       avpol_temp(:) = 0.0
