@@ -103,13 +103,13 @@
 ! weak acid: C
 
       zpol(9) = -1
-      hydroph(9) = 0
+      hydroph(9) = 5
       pKa(9) = 8.3 
 
 ! weak base: H
 
       zpol(10) = 1
-      hydroph(10) = 0
+      hydroph(10) = 5
       pKa(10) = 6.08
 
       end
