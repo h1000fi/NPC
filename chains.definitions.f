@@ -284,38 +284,37 @@ c          print*, 'nseq', nseq
             if(aacode .eq. 'f') then
               if(j.lt.3) then
                 segtype(i,j) = 1
-                write(3110+i, *), segtype(i,j)
               elseif(segtype(i,j-2).eq.1) then
-                segtype(i,j) = 3
-                write(3110+i, *), segtype(i,j)
+                segtype(i,j) = 5
+                segtype(i,j-2) = 2
+              elseif(segtype(i,j-1).eq.1) then
+                segtype(i,j) = 5
+                segtype(i,j-1) = 3
               else
                 segtype(i,j) = 1
-                write(3110+i, *), segtype(i,j)
               endif
             elseif((aacode.eq.'g').or.(aacode.eq.'q').or.
      &      (aacode.eq.'n').or.(aacode.eq.'t')) then
-              segtype(i,j) = 2
-              write(3110+i, *), segtype(i,j)
+              segtype(i,j) = 4
             elseif((aacode.eq.'a').or.(aacode.eq.'l').or.
      &      (aacode.eq.'w').or.(aacode.eq.'i').or.(aacode.eq.'y')) then
-              segtype(i,j) = 3
-              write(3110+i, *), segtype(i,j)
+              if(j.lt.2) then
+                segtype(i,j) = 5
+              elseif(segtype(i,j-1).eq.1) then
+                segtype(i,j) = 5
+                segtype(i,j-1) = 3
+              endif
             elseif((aacode.eq.'m').or.(aacode.eq.'s').or.
      &      (aacode.eq.'p').or.(aacode.eq.'v')) then
-              segtype(i,j) = 4
-              write(3110+i, *), segtype(i,j)
-            elseif((aacode.eq.'k').or.(aacode.eq.'r')) then
-              segtype(i,j) = 5
-              write(3110+i, *), segtype(i,j)
-            elseif((aacode.eq.'d').or.(aacode.eq.'e')) then
               segtype(i,j) = 6
-              write(3110+i, *), segtype(i,j)
-            elseif(aacode.eq.'c') then
+            elseif((aacode.eq.'k').or.(aacode.eq.'r')) then
               segtype(i,j) = 7
-              write(3110+i, *), segtype(i,j)
-            elseif(aacode.eq.'h') then
+            elseif((aacode.eq.'d').or.(aacode.eq.'e')) then
               segtype(i,j) = 8
-              write(3110+i, *), segtype(i,j)
+            elseif(aacode.eq.'c') then
+              segtype(i,j) = 9
+            elseif(aacode.eq.'h') then
+              segtype(i,j) = 10
             else
               print*, 'Error in sequence file', 2110+i
               call MPI_FINALIZE(ierr) ! finaliza MPI
@@ -324,6 +323,11 @@ c          print*, 'nseq', nseq
           enddo
 
           close(2110+i) 
+
+          do j=1,long(i)
+              write(3110+i, *), segtype(i,j)
+          enddo
+
           close(3110+i)
           
           return 

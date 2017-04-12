@@ -179,6 +179,7 @@
       real*8 kaibeta
       real*8 kaiHO
       real*8 kaiHI
+      real*8 kaiC
       real*8 decouple
       real*8 paircut
       real*8 pairst

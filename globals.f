@@ -162,6 +162,10 @@
            read(buffer, *, iostat=ios) kaiHO
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
+        case ('kaiC')
+           read(buffer, *, iostat=ios) kaiC
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
         case ('kaiHI')
            read(buffer, *, iostat=ios) kaiHI
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
