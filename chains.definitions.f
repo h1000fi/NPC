@@ -303,6 +303,8 @@ c          print*, 'nseq', nseq
               elseif(segtype(i,j-1).eq.1) then
                 segtype(i,j) = 5
                 segtype(i,j-1) = 3
+              else
+                segtype(i,j) = 5
               endif
             elseif((aacode.eq.'m').or.(aacode.eq.'s').or.
      &      (aacode.eq.'p').or.(aacode.eq.'v')) then
