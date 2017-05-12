@@ -18,7 +18,8 @@
          ALLOCATE (chainsperdelta(N_chains))
          ALLOCATE (zposition(N_chains))
          ALLOCATE (rposition(N_chains))
-         ALLOCATE (segtype(N_chains, maxlong)) 
+         ALLOCATE (segtype(N_chains, maxlong))
+         ALLOCATE (aatype(N_chains, maxlong)) 
          N_chains = 0
 
          z_center   = delta*dimZ/2.0  ! NPC center z[nm]
@@ -281,15 +282,13 @@ c          print*, 'nseq', nseq
           long(i)=nseq          
           do j=1,long(i)
             read(2110+i, *), aacode
+            aatype(i,j) = aacode
             if(aacode .eq. 'f') then
               if(j.lt.3) then
                 segtype(i,j) = 1
               elseif(segtype(i,j-2).eq.1) then
                 segtype(i,j) = 5
-                segtype(i,j-2) = 2
-              elseif(segtype(i,j-1).eq.1) then
-                segtype(i,j) = 5
-                segtype(i,j-1) = 3
+                segtype(i,j-2) = 1
               else
                 segtype(i,j) = 1
               endif
@@ -298,14 +297,7 @@ c          print*, 'nseq', nseq
               segtype(i,j) = 4
             elseif((aacode.eq.'a').or.(aacode.eq.'l').or.
      &      (aacode.eq.'w').or.(aacode.eq.'i').or.(aacode.eq.'y')) then
-              if(j.lt.2) then
-                segtype(i,j) = 5
-              elseif(segtype(i,j-1).eq.1) then
-                segtype(i,j) = 5
-                segtype(i,j-1) = 3
-              else
-                segtype(i,j) = 5
-              endif
+              segtype(i,j) = 5
             elseif((aacode.eq.'m').or.(aacode.eq.'s').or.
      &      (aacode.eq.'p').or.(aacode.eq.'v')) then
               segtype(i,j) = 6
@@ -325,6 +317,21 @@ c          print*, 'nseq', nseq
           enddo
 
           close(2110+i) 
+
+          do j=1,long(i)
+            if(((j+3).lt.long(i)).and.((aatype(i,j).eq.'g'))
+     &      .and.(aatype(i,j+1).eq.'f')) then
+              if((aatype(i,j+2).eq.'l').and.(aatype(i,j+3).eq.'g')) then
+                segtype(i,j+1) = 2
+              elseif(aatype(i,j+3).eq.'f') then
+                segtype(i,j+1) = 3
+              endif              
+            endif
+            if(((j+3).lt.long(i)).and.((aatype(i,j).eq.'f'))
+     &      .and.(aatype(i,j+2).eq.'f').and.(aatype(i,j+3).eq.'g')) then
+                segtype(i,j+1) = 3
+            endif
+          enddo
 
           do j=1,long(i)
               write(3110+i, *), segtype(i,j)

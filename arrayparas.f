@@ -38,6 +38,7 @@
       real*8, allocatable :: zposition(:)      ! z position of chain i
       real*8, allocatable :: rposition(:)
       integer, allocatable :: segtype(:,:)
+      character, allocatable :: aatype(:,:)
       real*8, allocatable :: endtoend(:)
       real*8 endtoend_av
       end module mparameters_chain

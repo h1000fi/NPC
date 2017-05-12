@@ -91,13 +91,13 @@ C----------------------------------------------------------
 
 ! all monomer types
 
-      do j = 1, N_monomer
+      do im = 1, N_monomer
 
          do ii = 1, N_chains
          avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
          enddo
 
-      write(title,'(A4, I1.1)')'type',j
+      write(title,'(A3, I2.2)')'mon',im
       call savetodisk(avpol_temp, title, cc ,ccc)
 
       enddo ! j
