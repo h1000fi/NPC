@@ -1,7 +1,7 @@
 #nix makefile for fortran-file	
 
 # put the name of the target program here
-TARGET = NPC_beta
+TARGET = NPC_decouple
 SRC = globals.f nanopore.f mrrrr.f rota36.f creador.f cadenas72mr.f fkfun.f chains.definitions.f monomers.definitions.f free_energy.f mainsolver.f saveresults.f fkpsol.f fkpset.f call_kinsol.f savetodisk.f fitspl.f lookup.f splint.f splines.f geom.f graftpoints.f lookup_kai.f kai.f cadenas_mk.f checking_actual_config.f TUNING.f create_protein.f arrayparas.f binary_array.f solver.f presolver.f
 
 # some definitions
