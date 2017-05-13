@@ -91,6 +91,7 @@ C----------------------------------------------------------
 
 ! all monomer types
 
+      avpol_temp(:) = 0.0
       do im = 1, N_monomer
 
          do ii = 1, N_chains
