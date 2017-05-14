@@ -93,7 +93,7 @@ C----------------------------------------------------------
 
       avpol_temp(:) = 0.0
       do im = 1, N_monomer
-
+      avpol_temp(:) = 0.0
          do ii = 1, N_chains
          avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
          enddo
