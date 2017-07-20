@@ -122,7 +122,7 @@
       real*8, allocatable :: aveP(:, :) ! average HO pair within the cutoff
       real*8, allocatable :: aveC(:) ! average absolute charge within the cutoff
       real*8, allocatable :: qtot_amp(:) ! absolute charge within the cutoff
-      real*8, allocatable :: Spair(:, :) ! pair entropy compensation
+!      real*8, allocatable :: Spair(:, :) ! pair entropy compensation
       real*8, allocatable :: Fpair(:, :) ! pair free energy
       real*8, allocatable :: Rpair(:, :) ! pair rate as a reaction
       real*8, allocatable :: Fpair_tot(:, :) ! total pair free energy as a reaction
@@ -217,6 +217,7 @@
       integer BdimR
       integer TdimR
       integer RdimZ
+      integer basketflag
       real*8 Curvature
       integer savetodisk_type
       integer readkai

@@ -32,7 +32,7 @@
       st_matrix(1,1)= 0.0
       st_matrix(2,2)= 0.0
       st_matrix(3,3)= 0.0
-      st_matrix(4,4)= 0.0
+      st_matrix(4,4)= kaiHI
       st_matrix(5,5)= kaiHO
       st_matrix(6,6)= kaiC
       st_matrix(7,7)= kaiHI
@@ -66,6 +66,8 @@
       henergy(3) =  kaiHO !kaiHI !st_matrix(1,2)
       henergy(4) =  0
       henergy(5) =  0
+      henergy(6) =  0
+      henergy(7) =  0
 
 ! set any number if zpol = 0....
 

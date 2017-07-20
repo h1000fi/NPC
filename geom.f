@@ -394,12 +394,14 @@ c      enddo
        ncells = ncells - 1
        endif
 
-       if((d2ring1.le.(rring1+0.75)).and.(iR.lt.xring1)) then
+       if((d2ring1.le.(rring1+1.25)).and.(iR.lt.xring1)) then
        proteinw(iR, iZ) = 1.0
        endif
 
        enddo
        enddo
+
+       if(basketflag.eq.1) then
 
        do iZ = int(zring3-80), int(zring3)
        do iR = 1, dimR
@@ -412,6 +414,8 @@ c      enddo
 
        enddo
        enddo
+
+       endif
 
        endselect
 

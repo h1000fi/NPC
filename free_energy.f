@@ -256,7 +256,7 @@ c! 8.vdW ! Ojo, los  son negativos => atraccion
 
              F_vdW = F_vdW - 0.5000*delta**3*xtotal2(ii,iC)*
      &       xtotal2(iii,Xulist_cell(ii, iC, iiC))*
-     &       Xulist_value(ii, iC, iiC)*st_matrix(ii, iii)*st
+     &       Xulist_value(5, iC, iiC)*st_matrix(ii, iii)*st
      &       /((vpol*vsol)**2)
      &       *(dfloat(indexa(iC,1))-0.5)*2*pi
 

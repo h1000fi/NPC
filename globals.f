@@ -292,6 +292,10 @@
            read(buffer, *, iostat=ios) RdimZ
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
+        case ('basketflag')
+           read(buffer, *, iostat=ios) basketflag
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
         case ('Curvature')
            read(buffer, *, iostat=ios) curvature
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
@@ -499,7 +503,7 @@
       ALLOCATE (aveP(2, dimR*dimZ))
       ALLOCATE (aveC(dimR*dimZ))
       ALLOCATE (qtot_amp(dimR*dimZ))
-      ALLOCATE (Spair(2, dimR*dimZ))
+!      ALLOCATE (Spair(2, dimR*dimZ))
       ALLOCATE (Fpair(2, dimR*dimZ))
       ALLOCATE (Rpair(2, dimR*dimZ))
       ALLOCATE (Fpair_tot(2, dimR*dimZ))
