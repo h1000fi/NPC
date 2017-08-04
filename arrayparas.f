@@ -188,6 +188,7 @@
       real*8 paircut
       real*8 pairst
       real*8 pairst2
+      real*8 krough
       real*8 Vnow,Vstart,Vend,looper
       real*8 Vstep
       real*8 kC

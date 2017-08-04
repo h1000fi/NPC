@@ -246,6 +246,10 @@
            read(buffer, *, iostat=ios) tol
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
+        case ('krough')
+           read(buffer, *, iostat=ios) krough
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
         case ('kBias')
            read(buffer, *, iostat=ios) kBias
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)

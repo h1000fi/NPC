@@ -224,23 +224,44 @@ C-----------------------------------------------------
                enddo ! jj
                enddo ! ii
 
+! adding regulation (roughness penalty)
+
+               jp = 1
+               aveP(im,iC) = 0.0
+               avePnorm = 0.0
+               do jj = 1, nXu(jp, iC) ! loop over kai neighbors
+                 avePnorm = avePnorm + Xulist_value(jp, iC, jj)
+     &                      *(dfloat(indexa(iC,1))-0.5)
+                 aveP(im,iC) = aveP(im,iC) +
+     &                      (Xulist_value(jp, iC, jj)*
+     &                      (dfloat(indexa(iC,1))-0.5)*
+     &                      (xtotal(im, Xulist_cell(jp, iC, jj))))
+               enddo
+               aveP(im,iC) = aveP(im,iC)/avePnorm - xtotal(im,iC)
+               xpot(im,iC) = xpot(im,iC) + krough*aveP(im,iC)
+
+
                if(hydroph(im).lt.4) then
                  jp=hydroph(im)
                  aveP(jp,iC) = 0.0
                  avePnorm = 0.0
 
-                 do jj = 1, nXu(jp, iC) ! loop over kai neighbors
-                 avePnorm = avePnorm + Xulist_value(jp, iC, jj)
-     &                      *(dfloat(indexa(iC,1))-0.5)
-                 aveP(jp,iC)=aveP(jp,iC) +
-     &               (Xulist_value(jp, iC, jj)*
-     &               (dfloat(indexa(iC,1))-0.5)*((1-decouple)*
-     &               (xtotal(jp, Xulist_cell(jp, iC, jj)))
-     &               +decouple*xtotal(1, Xulist_cell(1, iC, jj))
-     &               +decouple*xtotal(2, Xulist_cell(2, iC, jj))
-     &               +decouple*xtotal(3, Xulist_cell(3, iC, jj))))
-                 enddo
-                 aveP(jp,iC) = aveP(jp,iC)/avePnorm
+!                 do jj = 1, nXu(jp, iC) ! loop over kai neighbors
+!                 avePnorm = avePnorm + Xulist_value(jp, iC, jj)
+!     &                      *(dfloat(indexa(iC,1))-0.5)
+!                 aveP(jp,iC)=aveP(jp,iC) +
+!     &               (Xulist_value(jp, iC, jj)*
+!     &               (dfloat(indexa(iC,1))-0.5)*((1-decouple)*
+!     &               (xtotal(jp, Xulist_cell(jp, iC, jj)))
+!     &               +decouple*xtotal(1, Xulist_cell(1, iC, jj))
+!     &               +decouple*xtotal(2, Xulist_cell(2, iC, jj))
+!     &               +decouple*xtotal(3, Xulist_cell(3, iC, jj))))
+!                 enddo
+!                 aveP(jp,iC) = aveP(jp,iC)/avePnorm
+
+                 aveP(jp,iC) = (1-decouple)*xtotal(jp,iC)+decouple*
+     &               (xtotal(1,iC)+xtotal(2,iC)+xtotal(3,iC))
+
 !                 aveP(iC) = xtotal(1,iC)  ! +decouple*xtotal(2,iC)
 
                  if(aveP(jp,iC).gt.0) then
@@ -261,16 +282,16 @@ C-----------------------------------------------------
                  aveP(jp,iC) = 0.0
                  avePnorm = 0.0
 
-                 do jj = 1, nXu(jp, iC) ! loop over kai neighbors
-                 avePnorm = avePnorm + Xulist_value(jp, iC, jj)
-     &                      *(dfloat(indexa(iC,1))-0.5)
-                 aveP(jp,iC) = aveP(jp,iC) +
-     &                      (Xulist_value(jp, iC, jj)*
-     &                      (dfloat(indexa(iC,1))-0.5)*
-     &                      (xtotal(jp, Xulist_cell(jp, iC, jj))))
-                 enddo
-                 aveP(jp,iC) = aveP(jp,iC)/avePnorm
-!                 aveP(iC) = xtotal(1,iC)  ! +decouple*xtotal(2,iC)
+!                 do jj = 1, nXu(jp, iC) ! loop over kai neighbors
+!                 avePnorm = avePnorm + Xulist_value(jp, iC, jj)
+!     &                      *(dfloat(indexa(iC,1))-0.5)
+!                 aveP(jp,iC) = aveP(jp,iC) +
+!     &                      (Xulist_value(jp, iC, jj)*
+!     &                      (dfloat(indexa(iC,1))-0.5)*
+!     &                      (xtotal(jp, Xulist_cell(jp, iC, jj))))
+!                 enddo
+!                 aveP(jp,iC) = aveP(jp,iC)/avePnorm
+                 aveP(jp,iC) = xtotal(jp,iC)  ! +decouple*xtotal(2,iC)
 
                  if(aveP(jp,iC).gt.0) then
                  apair = dexp(pairst2*hfactor)-0.5
