@@ -22,15 +22,15 @@
       character(len=50) :: filename1 = 'DEFINITIONS.txt'
       character(len=50) :: filename2 = 'NUPS.txt'
 
-      ALLOCATE (nups(20))
-      ALLOCATE (znups(20))
-      ALLOCATE (rnups(20))
+      ALLOCATE (nups(22))
+      ALLOCATE (znups(22))
+      ALLOCATE (rnups(22))
 
       if(rank.eq.0)print*, 'Reading Nups parameters from ', filename2
 
       open (unit=11,file=filename2, 
      &      status='old', action='read', form="formatted")
-      do i=1,20,1
+      do i=1,22,1
          read (11,*,end=998) nups(i), znups(i), rnups(i)
       end do
 

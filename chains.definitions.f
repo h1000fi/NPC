@@ -27,7 +27,7 @@
          i=0
          chainsperdelta(:) = polyCov !8.0
 
-         if(nups(1).eq.1) then
+         if(nups(1).gt.0) then
          i=i+1
          ! Nup42 #1
          long(i)=382
@@ -35,10 +35,11 @@
 !         zposition(i)      = 13 + z_center   ! in nm                    
          zposition(i) = znups(1)
          rposition(i) = rnups(1)
+         chainsperdelta(i) = nups(1)
          N_chains = N_chains+1
          end if
 
-         if(nups(2).eq.1) then
+         if(nups(2).gt.0) then
          ! Nup159 #2
          i=i+1
          long(i)=685
@@ -46,10 +47,11 @@
 !         zposition(i)      = 16 + z_center     
          zposition(i) = znups(2)
          rposition(i) = rnups(2)
+         chainsperdelta(i) = nups(2)
          N_chains = N_chains+1
          end if
 
-         if(nups(3).eq.1) then
+         if(nups(3).gt.0) then
          ! Nup116 #3
          i=i+1
          long(i)=789
@@ -57,10 +59,11 @@
 !         zposition(i)      = 11 + z_center
          zposition(i) = znups(3)
          rposition(i) = rnups(3)
+         chainsperdelta(i) = nups(3)
          N_chains = N_chains+1
          end if
 
-         if(nups(4).eq.1) then
+         if(nups(4).gt.0) then
          ! Nsp1 #4
          i=i+1
          long(i)=617
@@ -68,10 +71,11 @@
 !         zposition(i)      = 12 + z_center
          zposition(i) = znups(4)
          rposition(i) = rnups(4)
+         chainsperdelta(i) = nups(4)
          N_chains = N_chains+1
          end if
 
-         if(nups(5).eq.1) then                           
+         if(nups(5).gt.0) then                           
          ! Nup100 #5
          i=i+1
          long(i)=800
@@ -79,10 +83,11 @@
 !         zposition(i)      = 9 + z_center
          zposition(i) = znups(5)
          rposition(i) = rnups(5)
+         chainsperdelta(i) = nups(5)
          N_chains = N_chains+1
          end if              
    
-         if(nups(6).eq.1) then
+         if(nups(6).gt.0) then
          ! Nup59 #6
          i=i+1
          long(i)=206
@@ -90,10 +95,11 @@
 !         zposition(i)      =  8 + z_center
          zposition(i) = znups(6)
          rposition(i) = rnups(6)
+         chainsperdelta(i) = nups(6)
          N_chains = N_chains+1
          end if         
 
-         if(nups(7).eq.1) then
+         if(nups(7).gt.0) then
          ! Nup53 #7
          i=i+1
          long(i)=227
@@ -101,10 +107,11 @@
 !         zposition(i)      =  7 + z_center
          zposition(i) = znups(7)
          rposition(i) = rnups(7)
+         chainsperdelta(i) = nups(7)
          N_chains = N_chains+1
          end if               
    
-         if(nups(8).eq.1) then       
+         if(nups(8).gt.0) then       
          ! Nsp1 #6 #8
          i=i+1
          long(i)=617
@@ -112,10 +119,11 @@
 !         zposition(i)      =  7 + z_center
          zposition(i) = znups(8)
          rposition(i) = rnups(8)
+         chainsperdelta(i) = nups(8)
          N_chains = N_chains+1
          end if        
 
-         if(nups(9).eq.1) then
+         if(nups(9).gt.0) then
          ! Nup49 #7 #9      
          i=i+1
          long(i)=251
@@ -123,10 +131,11 @@
 !         zposition(i)      =  6 + z_center
          zposition(i) = znups(9)
          rposition(i) = rnups(9)
+         chainsperdelta(i) = nups(9)
          N_chains = N_chains+1
          end if 
 
-         if(nups(10).eq.1) then
+         if(nups(10).gt.0) then
          ! Nup57 #8 #10     
          i=i+1
          long(i)=255
@@ -134,10 +143,11 @@
 !         zposition(i)      =  4 + z_center 
          zposition(i) = znups(10)
          rposition(i) = rnups(10)
+         chainsperdelta(i) = nups(10)
          N_chains = N_chains+1
          end if               
     
-         if(nups(11).eq.1) then        
+         if(nups(11).gt.0) then        
          ! Nup49 #9 #11
          i=i+1
          long(i)=251
@@ -145,10 +155,11 @@
 !         zposition(i)      = -6 + z_center
          zposition(i) = znups(11)
          rposition(i) = rnups(11)
+         chainsperdelta(i) = nups(11)
          N_chains = N_chains+1
          end if               
    
-         if(nups(12).eq.1) then         
+         if(nups(12).gt.0) then         
          ! Nup57 #10 #12
          i=i+1 
          long(i)=255
@@ -156,10 +167,11 @@
 !         zposition(i)      = -4 + z_center
          zposition(i) = znups(12)
          rposition(i) = rnups(12)
+         chainsperdelta(i) = nups(12)
          N_chains = N_chains+1
          end if               
     
-         if(nups(13).eq.1) then      
+         if(nups(13).gt.0) then      
          ! Nup145 #11 #13   
          i=i+1
          long(i)=433
@@ -167,10 +179,11 @@
 !         zposition(i)      =  -5 + z_center
          zposition(i) = znups(13)
          rposition(i) = rnups(13)
+         chainsperdelta(i) = nups(13)
          N_chains = N_chains+1
          end if               
     
-         if(nups(14).eq.1) then        
+         if(nups(14).gt.0) then        
          ! Nup53 #14
          i=i+1 
          long(i)=227
@@ -178,10 +191,11 @@
 !         zposition(i)      = -7 + z_center
          zposition(i) = znups(14)
          rposition(i) = rnups(14)
+         chainsperdelta(i) = nups(14)
          N_chains = N_chains+1 
          end if               
     
-         if(nups(15).eq.1) then        
+         if(nups(15).gt.0) then        
          ! Nsp1 #12 #15
          i=i+1
          long(i)=617
@@ -189,10 +203,11 @@
 !         zposition(i)      = -7 + z_center
          zposition(i) = znups(15)
          rposition(i) = rnups(15)
+         chainsperdelta(i) = nups(15)
          N_chains = N_chains+1
          end if               
     
-         if(nups(16).eq.1) then        
+         if(nups(16).gt.0) then        
          ! Nup59 #16
          i=i+1
          long(i)=206
@@ -200,10 +215,11 @@
 !         zposition(i)      = -8 + z_center
          zposition(i) = znups(16)
          rposition(i) = rnups(16)
+         chainsperdelta(i) = nups(16)
          N_chains = N_chains+1
          end if         
 
-         if(nups(17).eq.1) then
+         if(nups(17).gt.0) then
          ! Nsp1 #13 #17
          i=i+1
          long(i)=617
@@ -211,10 +227,11 @@
 !         zposition(i)      = -12 + z_center
          zposition(i) = znups(17)
          rposition(i) = rnups(17)
+         chainsperdelta(i) = nups(17)
          N_chains = N_chains+1
          end if               
     
-         if(nups(18).eq.1) then        
+         if(nups(18).gt.0) then        
          ! Nup1 #14 #18
          i=i+1
          long(i)=857
@@ -222,10 +239,11 @@
 !         zposition(i)      = -12 + z_center
          zposition(i) = znups(18)
          rposition(i) = rnups(18)
+         chainsperdelta(i) = nups(18)
          N_chains = N_chains+1
          end if               
     
-         if(nups(19).eq.1) then        
+         if(nups(19).gt.0) then        
         ! Nup60 #15 #19
          i=i+1
          long(i)=151
@@ -233,10 +251,11 @@
 !         zposition(i)      = -14 + z_center
          zposition(i) = znups(19)
          rposition(i) = rnups(19)
+         chainsperdelta(i) = nups(19)
          N_chains = N_chains+1
          end if
 
-         if(nups(20).eq.1) then
+         if(nups(20).gt.0) then
          ! Nup145N #16 #20
          i=i+1
          long(i)=433
@@ -244,8 +263,34 @@
 !         zposition(i)      = -14 + z_center
          zposition(i) = znups(20)
          rposition(i) = rnups(20)
+         chainsperdelta(i) = nups(20)
          N_chains = N_chains+1
          end if
+
+         if(nups(21).gt.0) then
+         ! Nup116 #3
+         i=i+1
+         long(i)=789
+         call read_seq(21)
+!         zposition(i)      = 11 + z_center
+         zposition(i) = znups(21)
+         rposition(i) = rnups(21)
+         chainsperdelta(i) = nups(21)
+         N_chains = N_chains+1
+         end if
+
+         if(nups(22).gt.0) then
+         ! Nup100 #5
+         i=i+1
+         long(i)=800
+         call read_seq(22)
+!         zposition(i)      = 9 + z_center
+         zposition(i) = znups(22)
+         rposition(i) = rnups(22)
+         chainsperdelta(i) = nups(22)
+         N_chains = N_chains+1
+         end if
+
 
 !        if (i.ne.N_chains) then 
 !        if(rank.eq.0)print*, 'BAD NUMBER OF CHAINS for seq_type 13'
