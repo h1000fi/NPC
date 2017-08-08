@@ -150,7 +150,7 @@ c       posgraft(2) = zpos
        zmin = int((dimZ - CdimZ)/2)
        zmax = zmin + CdimZ
 
-       zpos = zposition(ii) + delta*dimZ/2.0
+       zpos = zposition(ii)
        rpos = rposition(ii) !dimR*delta - delta/2.0
 
        x(1) = rpos

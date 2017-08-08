@@ -19,32 +19,16 @@
       integer line, linemax
       integer i
 
-      character(len=50) :: filename1 = 'DEFINITIONS.txt'
-      character(len=50) :: filename2 = 'NUPS.txt'
-
-      ALLOCATE (nups(22))
-      ALLOCATE (znups(22))
-      ALLOCATE (rnups(22))
-
-      if(rank.eq.0)print*, 'Reading Nups parameters from ', filename2
-
-      open (unit=11,file=filename2, 
-     &      status='old', action='read', form="formatted")
-      do i=1,22,1
-         read (11,*,end=998) nups(i), znups(i), rnups(i)
-      end do
-
-998   continue
-      close(11)
+      character(len=50) :: filename = 'DEFINITIONS.txt'
 
 ! Control file variables
 
       line = 0
       ios = 0
 
-      open(fh, file=filename1)
+      open(fh, file=filename)
 
-      if(rank.eq.0)print*, 'Reading parameters from ', filename1
+      if(rank.eq.0)print*, 'Reading parameters from ', filename
 
 ! ios is negative  if an end of record condition is encountered or if
 ! an endfile condition was detected.  It is positive  if an error was

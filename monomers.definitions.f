@@ -32,7 +32,7 @@
       st_matrix(1,1)= 0.0
       st_matrix(2,2)= 0.0
       st_matrix(3,3)= 0.0
-      st_matrix(4,4)= kaiHI
+      st_matrix(4,4)= kaibeta
       st_matrix(5,5)= kaiHO
       st_matrix(6,6)= kaiC
       st_matrix(7,7)= kaiHI
