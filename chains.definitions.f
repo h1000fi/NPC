@@ -32,8 +32,8 @@
          ALLOCATE (chainsperdelta(N_chains))
          ALLOCATE (zposition(N_chains))
          ALLOCATE (rposition(N_chains))
-         ALLOCATE (segtype(N_chains, maxlong))
-         ALLOCATE (aatype(N_chains, maxlong)) 
+         ALLOCATE (segtype(N_chains, maxlong+3))
+         ALLOCATE (aatype(N_chains, maxlong+3)) 
 
          open (unit=11,file=filename,
      &        status='old', action='read', form="formatted")
@@ -72,7 +72,8 @@ C*************************************************************
       character(1) aacode
 
       write(filename1,'(A15,I4.4, A4)') 'polymer_aaCode_',long(i),'.txt'
-      write(filename2,'(A15,I4.4, A4)') 'polymer_coarse_',long(i),'.txt'
+      write(filename2,'(A15,I4.4,A5,I2.2,A4)') 
+     &    'polymer_coarse_',long(i),'chain',i,'.txt'
 
       open(unit=2110+i,file=filename1)
       open(unit=3110+i,file=filename2)

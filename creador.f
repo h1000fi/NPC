@@ -52,7 +52,7 @@
       real*8 in1(maxlong, 3)
       common /endtoend/ endtoendtemp
 
-      seed = readseed
+      seed = readseed*(rank+1)
  
       rpos = posgraft(1)
       zpos = posgraft(2)
