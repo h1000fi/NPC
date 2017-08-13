@@ -40,7 +40,7 @@
       if(readkai.ne.1) then
          radio = delta*dimR
          if(rank.eq.0)print*,'Kai calculation, readkai =', readkai
-         write(filename,'(A18, I4.4, A4)')
+         write(filename,'(A5, I4.4, A4)')
      & 'kais-', dimR, '.kai'
          open(unit=111, file=filename)
          Xu = 0.0               ! vector Xu
@@ -97,7 +97,7 @@ c         MCsteps = 1
                if(vect.gt.(cutoff))goto 15 ! outside cut-off sphere
                do jj = 1, N_poorsol
                   if(jj.le.4) then
-                    if(vect.lt.lseg)goto 15
+!                    if(vect.lt.lseg)goto 15
                     Xu(jj,ii,Rj,Zj)=Xu(jj,ii,Rj,Zj)+1.0*R !((lseg/vect)**6)*R ! incluye el jacobiano R(segmento)
                   else
                     if(vect.lt.lseg) then !goto 15
@@ -114,7 +114,7 @@ c         MCsteps = 1
                        Xu(jj, ii, Rj, Zj) = Xu(jj, ii, Rj, Zj)/MCsteps*
      &                 (zmax-zmin)*(thetamax-thetamin)*(rmax-rmin)
                   enddo !jj
-                  write(111,*)ii,Rj,Zj,Xu(:,ii,Rj,Zj)
+!                  write(111,*)ii,Rj,Zj,Xu(:,ii,Rj,Zj)
                        !write(111,*,advance='no')Xu(jj,ii,Rj,Zj)
                enddo !Zj
             enddo !Rj

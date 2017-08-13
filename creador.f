@@ -89,7 +89,8 @@
          Rb = (dble(indexa(chains(i,long(ii)),1))-0.5)*delta
          Zb = (dble(indexa(chains(i,long(ii)),2))-0.5)*delta
 !         tip2bias = sqrt((Zb-zpos-Zbias)**2)
-         tip2bias = sqrt((Rb-Rbias)**2+(Zb-delta*dimZ/2.0-Zbias)**2)
+         tip2bias = sqrt(Rb-Rbias)**2
+!         tip2bias = sqrt((Rb-Rbias)**2+(Zb-delta*dimZ/2.0-Zbias)**2)
          accept = dexp(-kBias*tip2bias)
          rateBias=rands(seed)
          if(rateBias .gt. accept) goto 200
