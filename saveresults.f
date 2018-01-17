@@ -14,7 +14,7 @@
       include 'mpif.h' ! MPI libraries
       include 'MPI.h' ! MPI libraries
 
-      integer ccc, i, ii, jj, j, cc, im, is,iC,iR
+      integer ccc, i, ii, jj, j, kk, cc, im, is,iC,iR
       real*8 avpol_all(dimR*dimZ)
       real*8 avpol_temp(dimR*dimZ)
       real*8 fdis_temp(dimR*dimZ)
@@ -152,6 +152,8 @@ C----------------------------------------------------------
       call savetodisk(avpol_temp, title, cc ,ccc)
 
       endif
+
+
       if((savetodisk_flag.eq.2).or.(savetodisk_flag.eq.0)) then
 
 ! all polymers
@@ -171,6 +173,38 @@ C----------------------------------------------------------
       call savetodisk(avpol_temp, title, cc ,ccc)
 
       enddo
+
+! all polymer lengths
+
+      unilong(:) = 0
+      unilong(1) = long(1)
+      kk = 2
+      do ii = 1, N_chains
+         jj = 1
+         do while((jj.lt.kk).and.(long(ii).ne.unilong(jj)))
+            jj = jj + 1
+            if(jj.eq.kk) then
+            unilong(kk) = long(ii) 
+            kk = kk + 1
+            endif
+         end do
+      enddo
+
+      do ii = 1, N_chains
+
+      avpol_temp(:) = 0.0
+
+      do im = 1, N_monomer
+
+      avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
+
+      enddo
+
+      write(title,'(A3, I2.2)')'nup',long(ii)
+      call savetodisk(avpol_temp, title, cc ,ccc)
+
+      enddo
+
 
       endif
 

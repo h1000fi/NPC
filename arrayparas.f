@@ -31,6 +31,7 @@
       module mparameters_chain
       integer N_chains ! number of chains, should be equal to size in the actual implementation
       integer, allocatable :: long(:) ! length of chain i, see chains.definitions.f
+      integer, allocatable :: unilong(:)
       integer, allocatable :: nups(:)
       real*8, allocatable :: znups(:)
       real*8, allocatable :: rnups(:)

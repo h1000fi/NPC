@@ -29,6 +29,7 @@
          close(10)
 
          ALLOCATE (long(N_chains))
+         ALLOCATE (unilong(N_chains))
          ALLOCATE (chainsperdelta(N_chains))
          ALLOCATE (zposition(N_chains))
          ALLOCATE (rposition(N_chains))
