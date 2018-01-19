@@ -6,7 +6,7 @@
          include 'mpif.h'
          include 'MPI.h'
          real*8 z_center
-         integer i,io
+         integer i,io,ii,jj,kk
          character(len=50) :: filename = 'NUPS.txt'
 
          N_chains = 0
@@ -57,6 +57,21 @@
 !        stop
 !        end if                                  ! MK END ADDED
 
+        unilong(:) = 0
+        unilong(1) = long(1)
+        kk = 2
+        do ii = 1, N_chains
+           jj = 1
+           do while((jj.lt.kk).and.(long(ii).ne.unilong(jj)))
+              jj = jj + 1
+              if(jj.eq.kk) then
+              unilong(kk) = long(ii)
+              kk = kk + 1
+              endif
+           end do
+        enddo
+        if(rank.eq.0)print*, 'lengths of Nups:', unilong(:)
+
         end
 
 C*************************************************************
@@ -98,14 +113,14 @@ c          print*, 'nseq', nseq
               else
                 segtype(i,j) = 1
               endif
-            elseif((aacode.eq.'g').or.(aacode.eq.'q').or.
+            elseif((aacode.eq.'q').or.
      &      (aacode.eq.'n').or.(aacode.eq.'t')) then
               segtype(i,j) = 4
             elseif((aacode.eq.'a').or.(aacode.eq.'l').or.
      &      (aacode.eq.'w').or.(aacode.eq.'i').or.(aacode.eq.'y')) then
               segtype(i,j) = 5
             elseif((aacode.eq.'m').or.(aacode.eq.'s').or.
-     &      (aacode.eq.'p').or.(aacode.eq.'v')) then
+     &      (aacode.eq.'p').or.(aacode.eq.'v') .or.(aacode.eq.'g')) then
               segtype(i,j) = 6
             elseif((aacode.eq.'k').or.(aacode.eq.'r')) then
               segtype(i,j) = 7
@@ -125,7 +140,7 @@ c          print*, 'nseq', nseq
           close(2110+i) 
 
           do j=1,long(i)
-            if(((j+3).lt.long(i)).and.((aatype(i,j).eq.'g'))
+            if(((j+3).le.long(i)).and.((aatype(i,j).eq.'g'))
      &      .and.(aatype(i,j+1).eq.'f')) then
               if((aatype(i,j+2).eq.'l').and.(aatype(i,j+3).eq.'g')) then
                 segtype(i,j+1) = 2
@@ -133,9 +148,9 @@ c          print*, 'nseq', nseq
                 segtype(i,j+1) = 3
               endif              
             endif
-            if(((j+3).lt.long(i)).and.((aatype(i,j).eq.'f'))
+            if(((j+3).le.long(i)).and.((aatype(i,j).eq.'f'))
      &      .and.(aatype(i,j+2).eq.'f').and.(aatype(i,j+3).eq.'g')) then
-                segtype(i,j+1) = 3
+                segtype(i,j) = 3
             endif
           enddo
 
@@ -144,7 +159,7 @@ c          print*, 'nseq', nseq
           enddo
 
           close(3110+i)
-          
+
           return 
       end
 

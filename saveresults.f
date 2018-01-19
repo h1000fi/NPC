@@ -176,35 +176,20 @@ C----------------------------------------------------------
 
 ! all polymer lengths
 
-      unilong(:) = 0
-      unilong(1) = long(1)
-      kk = 2
       do ii = 1, N_chains
-         jj = 1
-         do while((jj.lt.kk).and.(long(ii).ne.unilong(jj)))
-            jj = jj + 1
-            if(jj.eq.kk) then
-            unilong(kk) = long(ii) 
-            kk = kk + 1
-            endif
-         end do
+        if(unilong(ii).ne.0) then
+        avpol_temp(:) = 0.0
+        do jj = 1, N_chains 
+          if(long(jj).eq.unilong(ii)) then
+          do im = 1, N_monomer
+            avpol_temp(:) = avpol_temp(:) + avpol(im, jj, :)
+          enddo
+          endif
+        enddo
+        write(title,'(A1, I4.4)')'n',unilong(ii)
+        call savetodisk(avpol_temp, title, cc ,ccc)
+        endif
       enddo
-
-      do ii = 1, N_chains
-
-      avpol_temp(:) = 0.0
-
-      do im = 1, N_monomer
-
-      avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
-
-      enddo
-
-      write(title,'(A3, I2.2)')'nup',long(ii)
-      call savetodisk(avpol_temp, title, cc ,ccc)
-
-      enddo
-
 
       endif
 
@@ -250,7 +235,7 @@ c      call savetodisk(xsol, title, cc, ccc)
 
       fdis_temp(:) = fdis(im,:)
 
-      write(title,'(A3, I1.1)')'fdis',im
+      write(title,'(A3, I2.2)')'fdi',im
       call savetodisk(fdis_temp, title, cc ,ccc)
 
       enddo
