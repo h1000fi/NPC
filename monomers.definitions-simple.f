@@ -27,18 +27,20 @@
         enddo
       enddo
 
-      st_matrix(:,:)= 0.0
+!      st_matrix(:,:)= 0.0
 
       st_matrix(1,1)= 0.0
       st_matrix(2,2)= kaibeta
       st_matrix(3,3)= kaiHO
 !      st_matrix(4,4)= kaiHI
 
-      st_matrix(1,2)= kaiHI
-      st_matrix(2,1)= kaiHI
-
+      st_matrix(1,2)= 0 !kaiHI
+      st_matrix(2,1)= 0 !kaiHI
       st_matrix(1,3)= kaiHO 
       st_matrix(3,1)= kaiHO
+      st_matrix(2,3)= 0 !kaiHI
+      st_matrix(3,2)= 0 !kaiHI
+
 !      st_matrix(1,4)= kaiHI
 !      st_matrix(4,1)= kaiHI
 !      st_matrix(2,4)= kaiHI

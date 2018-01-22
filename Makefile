@@ -2,7 +2,7 @@
 
 # put the name of the target program here
 TARGET = NPC_test_simple
-SRC = globals.f nanopore.f mrrrr.f rota36.f creador.f cadenas72mr.f fkfun-simple.f chains.definitions.f monomers.definitions-simple.f free_energy.f mainsolver.f saveresults.f fkpsol.f fkpset.f call_kinsol.f savetodisk.f fitspl.f lookup.f splint.f splines.f geom.f graftpoints.f lookup_kai.f kai.f cadenas_mk.f checking_actual_config.f TUNING.f create_protein.f arrayparas.f binary_array.f solver.f presolver.f
+SRC = globals.f nanopore.f mrrrr.f rota36.f creador.f cadenas72mr.f fkfun-simple.f chains.definitions.f monomers.definitions-simple.f free_energy-simple.f mainsolver.f saveresults.f fkpsol.f fkpset.f call_kinsol.f savetodisk.f fitspl.f lookup.f splint.f splines.f geom.f graftpoints.f lookup_kai.f kai-simple.f cadenas_mk.f checking_actual_config.f TUNING.f create_protein.f arrayparas.f binary_array.f solver.f presolver.f
 
 # some definitions
 SHELL = /bin/bash

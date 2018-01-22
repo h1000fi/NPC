@@ -213,12 +213,12 @@ C-----------------------------------------------------
 
                do ii = 1, N_poorsol ! loop over different poor sv types
                do jj = 1, nXu(ii, iC) ! loop over kai neighbors
-
+                  
                         xpot(im,iC) = xpot(im,iC) +
      &                       (st_matrix(hydroph(im),ii) ! st_matrix(x, y) : interaction of hydrophobic segments of type x with those of type y ( should be diagonal)
 !     &                       *st/(vsol*vpol)*
      &                       *hfactor*st/(vsol*vpol)*           ! st in kT/monomer          
-     &                       Xulist_value(5, iC, jj)*
+     &                       Xulist_value(3, iC, jj)*
 !     &                       Xulist_value(ii, iC, jj)*
      &                       xtotal(ii, Xulist_cell(ii, iC, jj)))
 
@@ -228,7 +228,7 @@ C-----------------------------------------------------
 ! adding regulation (roughness penalty)
 
 
-               if(hydroph(im).le.2) then
+               if(hydroph(im).lt.3) then
                  jp=hydroph(im)
                  aveP(jp,iC) = 0.0
                  avePnorm = 0.0
@@ -245,6 +245,16 @@ C-----------------------------------------------------
 !                 aveP(jp,iC) = xtotal(jp,iC)  ! +decouple*xtotal(2,iC)
 
                  if(aveP(jp,iC).gt.0) then
+                 if(jp.eq.1) then
+                 apair = dexp(pairst*hfactor)-0.5
+                 bpair=2*dexp(pairst*hfactor)-1+1/pairsize/aveP(jp,iC)
+                 cpair = dexp(pairst*hfactor)
+                 Rpair(jp,iC) =
+     &                (bpair-sqrt(bpair**2-4*apair*cpair))/apair/2
+                 Fpair(jp,iC) = dlog(1-Rpair(jp,iC))
+     &               -dlog(1-pairsize*aveP(jp,iC)*(1-0.5*Rpair(jp,iC)))
+                 xpot(im,iC)=xpot(im,iC)-Fpair(jp,iC)
+                 else if(jp.eq.2) then
                  apair = dexp(pairst2*hfactor)-0.5
                  bpair=2*dexp(pairst2*hfactor)-1+1/pairsize2/aveP(jp,iC)
                  cpair = dexp(pairst2*hfactor)
@@ -253,6 +263,7 @@ C-----------------------------------------------------
                  Fpair(jp,iC) = dlog(1-Rpair(jp,iC))
      &               -dlog(1-pairsize2*aveP(jp,iC)*(1-0.5*Rpair(jp,iC)))
                  xpot(im,iC)=xpot(im,iC)-Fpair(jp,iC)
+                 endif
                  endif
                endif
 

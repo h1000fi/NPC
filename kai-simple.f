@@ -96,7 +96,7 @@ c         MCsteps = 1
                endif
                if(vect.gt.(cutoff))goto 15 ! outside cut-off sphere
                do jj = 1, N_poorsol
-                  if(jj.le.4) then
+                  if(jj.le.2) then
 !                    if(vect.lt.lseg)goto 15
                     Xu(jj,ii,Rj,Zj)=Xu(jj,ii,Rj,Zj)+1.0*R !((lseg/vect)**6)*R ! incluye el jacobiano R(segmento)
                   else
