@@ -248,8 +248,8 @@ c      call savetodisk(xsol, title, cc, ccc)
 
 ! Pair rate
 
-!      title = 'Rpair'
-!      call savetodisk(Rpair, title, cc, ccc)
+      title = 'Rpair'
+      call savetodisk(Rpair(1,:), title, cc, ccc)
 
 ! Pair energy
 
