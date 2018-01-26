@@ -114,7 +114,7 @@ c         MCsteps = 1
                        Xu(jj, ii, Rj, Zj) = Xu(jj, ii, Rj, Zj)/MCsteps*
      &                 (zmax-zmin)*(thetamax-thetamin)*(rmax-rmin)
                   enddo !jj
-                  write(111,*)ii,Rj,Zj,Xu(:,ii,Rj,Zj)
+!                  write(111,*)ii,Rj,Zj,Xu(:,ii,Rj,Zj)
                        !write(111,*,advance='no')Xu(jj,ii,Rj,Zj)
                enddo !Zj
             enddo !Rj
