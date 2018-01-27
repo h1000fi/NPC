@@ -19,7 +19,7 @@
       integer total,ix(3)
       integer *1 displ_temp
       integer i,il,u1,u2,iii,ii,ll, jj
-      integer j,ncha
+      integer j,ncha,fchain
 
       real*8 Rb, Zb, tip2bias, accept, rateBias
 
@@ -66,7 +66,18 @@
  
       if(calq.eq.1)ncha=-1
 
-      do while (il.lt.cuantas)
+      fchain = 1
+      if(long(ii).gt.500) then
+        fchain = 1
+      else if(long(ii).gt.300) then
+        fchain = 2
+      else if(long(ii).gt.200) then
+        fchain = 3
+      else
+        fchain = 4
+      end if
+
+      do while (il.lt.(fchain*cuantas))
  
          if(cadenastype.eq.1)
      & call cadenas72mr(chains,ncha, rpos, zpos, long(ii))
