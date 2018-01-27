@@ -159,20 +159,20 @@ C----------------------------------------------------------
 ! all polymers
 
 
-      do ii = 1, N_chains
-
-      avpol_temp(:) = 0.0
-
-      do im = 1, N_monomer
-
-      avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
-
-      enddo
-
-      write(title,'(A3, I2.2)')'cha',ii
-      call savetodisk(avpol_temp, title, cc ,ccc)
-
-      enddo
+!      do ii = 1, N_chains
+!
+!      avpol_temp(:) = 0.0
+!
+!      do im = 1, N_monomer
+!
+!      avpol_temp(:) = avpol_temp(:)+avpol(im, ii, :)
+!
+!      enddo
+!
+!      write(title,'(A3, I2.2)')'cha',ii
+!      call savetodisk(avpol_temp, title, cc ,ccc)
+!
+!      enddo
 
 ! all polymer lengths
 

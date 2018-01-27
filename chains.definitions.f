@@ -5,25 +5,30 @@
          implicit none
          include 'mpif.h'
          include 'MPI.h'
-         real*8 z_center
-         integer i,io,ii,jj,kk
+         real*8 z_center,a,b,c
+         integer i,j,io,ii,jj,kk,nnup,nc,run,l
+         integer, dimension(100) :: ncpu
          character(len=50) :: filename = 'NUPS.txt'
 
          N_chains = 0
+         nnup = 0
+         ncpu = 0
 
          if(rank.eq.0)print*, 'Reading Nups parameters from ', filename
 
          open (unit=10,file=filename,
      &        status='old', action='read', form="formatted")
          do
-            read (10,*,IOSTAT=io)
+            read (10,*,IOSTAT=io) nc
             if (io>0) then
              if(rank.eq.0)print*, 'error with NUPS.txt'
             else if (io<0) then
-             if(rank.eq.0)print*, 'number of chainse', N_chains
+             if(rank.eq.0)print*, 'number of chains', N_chains
              exit
             else
-             N_chains=N_chains+1
+             nnup = nnup + 1
+             ncpu(nnup) = nc
+             N_chains = N_chains + ncpu(nnup)
             endif
          end do
          close(10)
@@ -38,9 +43,16 @@
 
          open (unit=11,file=filename,
      &        status='old', action='read', form="formatted")
-         do i=1,N_chains,1
-          read(11,*,end=998) 
-     &    chainsperdelta(i),long(i),zposition(i),rposition(i)
+         run = 0
+         do i=1,nnup,1
+          read(11,*,end=998) nc,a,l,b,c
+          do j=1,ncpu(i),1
+           chainsperdelta(run+j) = a
+           long(run+j) = l
+           zposition(run+j) = b
+           rposition(run+j) = c
+          end do
+          run = run + ncpu(i)
          end do
 998      continue
          close(11)
