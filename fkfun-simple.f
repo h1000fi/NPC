@@ -31,7 +31,7 @@
       real*8 apair, bpair, cpair
 
       real*8 psi(ncells+2) ! psi se define asi para evitar problemas al construir las fs
-      real*8 xtotal(N_poorsol, ncells+2) ! psi se define asi para evitar problemas al construir las fs
+      real*8 xtotal(N_poorsol, ncells+2) ! see kai-simple.f?
 
       real*8 xh(ncells) ! psi se define asi para evitar problemas al construir las fs
  
@@ -156,6 +156,10 @@ C-----------------------------------------------------
           do i = 1, N_poorsol
           xtotal(i, ncells+1) = 0.0
           xtotal(i, ncells+2) = 0.0
+!          xtotal(i, ncells+3) = 0.0
+!          xtotal(i, ncells+4) = 0.0
+!          xtotal(i, ncells+5) = 0.0
+!          xtotal(i, ncells+6) = 0.0
           enddo
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -213,7 +217,8 @@ C-----------------------------------------------------
 
                do ii = 1, N_poorsol ! loop over different poor sv types
                do jj = 1, nXu(ii, iC) ! loop over kai neighbors
-                  
+
+                        if(Xulist_cell(ii, iC, jj).le.(ncells+2)) then
                         xpot(im,iC) = xpot(im,iC) +
      &                       (st_matrix(hydroph(im),ii) ! st_matrix(x, y) : interaction of hydrophobic segments of type x with those of type y ( should be diagonal)
 !     &                       *st/(vsol*vpol)*
@@ -221,6 +226,7 @@ C-----------------------------------------------------
      &                       Xulist_value(3, iC, jj)*
 !     &                       Xulist_value(ii, iC, jj)*
      &                       xtotal(ii, Xulist_cell(ii, iC, jj)))
+                        end if
 
                enddo ! jj
                enddo ! ii
@@ -236,10 +242,12 @@ C-----------------------------------------------------
                  do jj = 1, nXu(jp, iC) ! loop over kai neighbors
                  avePnorm = avePnorm + Xulist_value(jp, iC, jj)
 !     &                      *(dfloat(indexa(iC,1))-0.5)
+                 if(Xulist_cell(jp, iC, jj).le.(ncells+2)) then
                  aveP(jp,iC) = aveP(jp,iC) +
      &                      (Xulist_value(jp, iC, jj)*
 !     &                      (dfloat(indexa(iC,1))-0.5)*
      &                      (xtotal(jp, Xulist_cell(jp, iC, jj))))
+                 end if
                  enddo
                  aveP(jp,iC) = aveP(jp,iC)/avePnorm
 !                 aveP(jp,iC) = xtotal(jp,iC)  ! +decouple*xtotal(2,iC)
@@ -417,17 +425,23 @@ C-------------------------------------------------------------------------------
 
 ! Poisson eq.
 
-            do iC=1,ntot
+       do iC=1,ntot
 
 ! Cilindro (derivada al centro), ver notas     
-     
+
+       if((rp(iC).le.(ncells+2)).and.(zp(iC).le.(ncells+2))
+     &   .and.(rm(iC).le.(ncells+2)).and.(zm(iC).le.(ncells+2))) then  
                f(iC+ntot)=
      & psi(rp(iC)) -2*psi(iC) + psi(rm(iC)) +
      & (0.5/(dfloat(indexa(iC,1))-0.5))*(psi(rp(iC))-psi(rm(iC))) + ! termino de curvatura
      & psi(zp(iC)) -2*psi(iC) + psi(zm(iC)) + ! derivada en z
      & qtot(iC)*constq
      
-               f(iC+ntot)=f(iC+ntot)/(-2.0) ! mejora kinsol...
+       f(iC+ntot)=f(iC+ntot)/(-2.0) ! mejora kinsol...
+       else
+       f(iC+ntot)=0.0
+       end if
+
       enddo
 
 ! poor solvent

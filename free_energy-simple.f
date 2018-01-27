@@ -252,15 +252,15 @@ c! 8.vdW ! Ojo, los  son negativos => atraccion
       do ii = 1, N_poorsol
       do iii = 1, N_poorsol
         do iC = 1, ncells
-               do iiC = 1, nXu(ii, iC) ! loop over kai neighbors     
-
+           do iiC = 1, nXu(ii, iC) ! loop over kai neighbors     
+             if(Xulist_cell(ii, iC, iiC).le.(ncells+2)) then
              F_vdW = F_vdW - 0.5000*delta**3*xtotal2(ii,iC)*
      &       xtotal2(iii,Xulist_cell(ii, iC, iiC))*
      &       Xulist_value(3, iC, iiC)*st_matrix(ii, iii)*st
      &       /((vpol*vsol)**2)
      &       *(dfloat(indexa(iC,1))-0.5)*2*pi
-
-               enddo  ! iiC                                            
+             end if
+           enddo  ! iiC                                            
         enddo ! iC          
       enddo ! iii                                             
       enddo ! ii

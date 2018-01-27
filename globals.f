@@ -483,7 +483,7 @@
       ALLOCATE (qtot(dimR*dimZ))
       ALLOCATE (psi2(dimR*dimZ))
       ALLOCATE (xsol(dimR*dimZ))
-      ALLOCATE (xtotal2(N_poorsol, dimR*dimZ+2))
+      ALLOCATE (xtotal2(N_poorsol, dimR*dimZ+2)) !see kai-simple.f
       ALLOCATE (xpos(dimR*dimZ))
       ALLOCATE (xneg(dimR*dimZ))
       ALLOCATE (xHplus(dimR*dimZ))

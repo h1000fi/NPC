@@ -7,9 +7,9 @@
          include 'MPI.h'
          real*8 z_center,a,b,c
          integer i,j,io,ii,jj,kk,nnup,nc,run,l
-         integer, dimension(100) :: ncpu
+         integer, dimension(1000) :: ncpu
          character(len=50) :: filename = 'NUPS.txt'
-         character*100 filename2
+         character*100 filenameCG
 
          N_chains = 0
          nnup = 0
@@ -85,17 +85,17 @@
         enddo
         if(rank.eq.0)print*, 'lengths of Nups:', unilong(:)
 
-        do i = 1, kk-1
-          write(filename2,'(A15,I4.4,A4)')
-     &    'polymer_coarse_',unilong(i),'.txt'
+        do ii = 1, kk-1
+          write(filenameCG,'(A15,I4.4,A4)')
+     &    'polymer_coarse_',unilong(ii),'.txt'
 
-          open(unit=3110+i,file=filename2)
-          write(3110+i, *), unilong(i)
-          do j=1,unilong(i)
-              write(3110+i, *), segtype(i,j)
+          open(unit=3110+ii,file=filenameCG)
+          write(3110+ii, *), unilong(ii)
+          do jj=1,unilong(ii)
+              write(3110+ii, *), segtype(ii,jj)
           enddo
 
-          close(3110+i)
+          close(3110+ii)
         end do
 
         end
@@ -109,19 +109,21 @@ C*************************************************************
       include 'mpif.h'
       include 'MPI.h'
 
-      character*100 filename1!,filename2
+      character*100 filename1, filename2
       integer i, nseq, j
       character(1) aacode
 
       write(filename1,'(A15,I4.4, A4)') 'polymer_aaCode_',long(i),'.txt'
+      write(filename2,'(A15,I4.4,A5,I2.2,A4)')
+     &    'polymer_coarse_',long(i),'chain',i,'.txt'
 
       open(unit=2110+i,file=filename1)
-!      open(unit=3110+i,file=filename2)
+      open(unit=1110+i,file=filename2)
           
           !print*, filename, i, 'opened'
           
           read(2110+i, *), nseq
-!          write(3110+i, *), nseq
+          write(1110+i, *), nseq
 c          print*, 'nseq', nseq
 
           long(i)=nseq          
@@ -181,13 +183,13 @@ c          print*, 'nseq', nseq
 !          write(filename2,'(A15,I4.4,A5,I2.2,A4)')
 !     &    'polymer_coarse_',long(i),'chain',i,'.txt'
 
-!          open(unit=3110+i,file=filename2)
-!          write(3110+i, *), nseq
-!          do j=1,long(i)
-!              write(3110+i, *), segtype(i,j)
-!          enddo
+!          open(unit=1110+i,file=filename2)
+!          write(1110+i, *), nseq
+          do j=1,long(i)
+              write(1110+i, *), segtype(i,j)
+          enddo
 
-!          close(3110+i)
+          close(1110+i)
 
           return 
       end

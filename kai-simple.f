@@ -90,7 +90,7 @@ c         MCsteps = 1
                                 ! z is the distance to the segment,
                                 ! while R
                                 ! is the position in the lattice
-               if(Zj.eq.4) then !changed 2 to 4
+               if(Zj.eq.4) then !changed 2 to 4, xtotal(:,ncell+4) range
                print*, z, z/delta,i,ii
                stop
                endif
