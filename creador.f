@@ -68,16 +68,14 @@
 
       fchain = 1
       if(long(ii).gt.500) then
-        fchain = 1
+        fchain = 4
       else if(long(ii).gt.300) then
         fchain = 2
-      else if(long(ii).gt.200) then
-        fchain = 3
       else
-        fchain = 4
+        fchain = 1
       end if
 
-      do while (il.lt.(fchain*cuantas))
+      do while (il.lt.(cuantas/fchain))
  
          if(cadenastype.eq.1)
      & call cadenas72mr(chains,ncha, rpos, zpos, long(ii))
@@ -88,7 +86,7 @@
 
 !         il = il + 1
  
-         if(il.ge.cuantas) goto 100
+         if(il.ge.(cuantas/fchain)) goto 100
 
 ! Check collision with protein...
 
@@ -96,18 +94,18 @@
          if(proteinC(chains(i,j)).ne.0.0)goto 200 ! collides with protein, don't use this chain
          enddo
 
-         if(long(ii).gt.600) then
-         Rb = (dble(indexa(chains(i,long(ii)),1))-0.5)*delta
-         Zb = (dble(indexa(chains(i,long(ii)),2))-0.5)*delta
-!         tip2bias = sqrt((Zb-zpos-Zbias)**2)
-         tip2bias = sqrt(Rb-Rbias)**2
+!         if(long(ii).gt.600) then
+!         Rb = (dble(indexa(chains(i,long(ii)),1))-0.5)*delta
+!         Zb = (dble(indexa(chains(i,long(ii)),2))-0.5)*delta
+!!         tip2bias = sqrt((Zb-zpos-Zbias)**2)
+!         tip2bias = sqrt(Rb-Rbias)**2
 !         tip2bias = sqrt((Rb-Rbias)**2+(Zb-delta*dimZ/2.0-Zbias)**2)
-         accept = dexp(-kBias*tip2bias)
-         rateBias=rands(seed)
-         if(rateBias .gt. accept) goto 200
-         else
-         accept = 1.0
-         endif
+!         accept = dexp(-kBias*tip2bias)
+!         rateBias=rands(seed)
+!         if(rateBias .gt. accept) goto 200
+!         else
+!         accept = 1.0
+!         endif
 
          newcuantas(ii) = newcuantas(ii)+1
          il = il + 1
@@ -115,8 +113,8 @@
          endtoend(newcuantas(ii)) = endtoendtemp(i)
 
           fs(newcuantas(ii))=chains(i,1)
-          pbias(ii,newcuantas(ii))=1.0
-          pbias(ii,newcuantas(ii))=1.0/accept
+!          pbias(ii,newcuantas(ii))=1.0
+!          pbias(ii,newcuantas(ii))=1.0/accept
 
           if(fs(newcuantas(ii)).eq.0) then 
           print*, 'Error', il, i, rank, ncha
@@ -140,12 +138,12 @@
           call encode(displacement,binary, long(ii))
           displ(newcuantas(ii),:) = binary(:)
 
- 200      enddo !ncha
-          enddo ! il 
+ 200    enddo !ncha
+      enddo ! il 
 
-      print*, 'Processor ', rank+1, 'has',newcuantas(ii),'conformations'
+100   print*, 'Processor ', rank+1, 'has',newcuantas(ii),'conformations'
       if(newcuantas(ii).eq.0)stop
           
- 100  return
+      return
       end
 

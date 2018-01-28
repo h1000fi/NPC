@@ -296,7 +296,7 @@ c      call savetodisk(xsol, title, cc, ccc)
          write(510,*)'zpos        = ',zpos
          write(510,*)'zneg        = ',zneg
          write(510,*)'cuantas     = ',cuantas
-         write(510,*)'newcuantas     = ',newcuantas
+         write(510,*)'newcuantas     = ',newcuantas(:)
          write(510,*)'iterations  = ',iter
          write(510,*)'CHAINS PER DELTA  = ',chainsperdelta
          write(510,*)'system length / nm = ', dimZ*delta

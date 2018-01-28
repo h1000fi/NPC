@@ -67,7 +67,7 @@
 
       module mchains
       integer*4, allocatable :: fs(:)
-      real*8, allocatable :: pbias(:,:)
+!      real*8, allocatable :: pbias(:,:)
       integer*1, allocatable :: displ(:,:)
       endmodule mchains
        

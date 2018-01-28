@@ -168,39 +168,39 @@ C-----------------------------------------------------
       do im =1, N_monomer
       do iC = 1, ntot
 
-      select case (hguess)
+!      select case (hguess)
 
-      case (1) !wall-center
+!      case (1) !wall-center
 
-      hdistance = (min(dfloat(indexa(iC,1))*delta,
-     & abs(dfloat(indexa(iC,1))*delta-CdimR*delta+hside)))**2
-     &  +(oval*(dfloat(indexa(iC,2))-0.5*dimZ)*delta)**2
+!      hdistance = (min(dfloat(indexa(iC,1))*delta,
+!     & abs(dfloat(indexa(iC,1))*delta-CdimR*delta+hside)))**2
+!     &  +(oval*(dfloat(indexa(iC,2))-0.5*dimZ)*delta)**2
 
-      case (2) !wall
+!      case (2) !wall
 
-      hdistance = (dfloat(indexa(iC,1))*delta-(CdimR*delta-hside))**2
-     &  +(oval*(dfloat(indexa(iC,2))-0.5*dimZ)*delta)**2
+!      hdistance = (dfloat(indexa(iC,1))*delta-(CdimR*delta-hside))**2
+!     &  +(oval*(dfloat(indexa(iC,2))-0.5*dimZ)*delta)**2
 
-      case (3) !center
+!      case (3) !center
 
-      hdistance = (dfloat(indexa(iC,1))*delta)**2
-     &  +(oval*((dfloat(indexa(iC,2))-0.5*dimZ)*delta-hcenter))**2
+!      hdistance = (dfloat(indexa(iC,1))*delta)**2
+!     &  +(oval*((dfloat(indexa(iC,2))-0.5*dimZ)*delta-hcenter))**2
 
-      case (4) !Ghavami
+!      case (4) !Ghavami
 
-      hdistance = (dfloat(indexa(iC,1))*delta-CdimR*delta+10)**2
-     &  +((dfloat(indexa(iC,2))-0.5*dimZ-hcenter/delta)*delta)**2
+!      hdistance = (dfloat(indexa(iC,1))*delta-CdimR*delta+10)**2
+!     &  +((dfloat(indexa(iC,2))-0.5*dimZ-hcenter/delta)*delta)**2
 
-      case (5) !wall-upcenter
+!      case (5) !wall-upcenter
 
-      hdistance = min((dfloat(indexa(iC,1))*delta)**2
-     & +(dfloat(indexa(iC,2))*delta-0.5*dimZ*delta-hcenter)**2,
-     & (dfloat(indexa(iC,1))*delta-CdimR*delta+hside)**2
-     & +((dfloat(indexa(iC,2))-0.5*dimZ)*delta)**2)
+!      hdistance = min((dfloat(indexa(iC,1))*delta)**2
+!     & +(dfloat(indexa(iC,2))*delta-0.5*dimZ*delta-hcenter)**2,
+!     & (dfloat(indexa(iC,1))*delta-CdimR*delta+hside)**2
+!     & +((dfloat(indexa(iC,2))-0.5*dimZ)*delta)**2)
 
-      endselect
+!      endselect
 
-      hfactor = dexp(-(kp**2)*hdistance)
+!      hfactor = dexp(-(kp**2)*hdistance)
 
       xpot(im,iC) = dlog(xh(iC))*vpol
 
@@ -222,7 +222,7 @@ C-----------------------------------------------------
                         xpot(im,iC) = xpot(im,iC) +
      &                       (st_matrix(hydroph(im),ii) ! st_matrix(x, y) : interaction of hydrophobic segments of type x with those of type y ( should be diagonal)
 !     &                       *st/(vsol*vpol)*
-     &                       *hfactor*st/(vsol*vpol)*           ! st in kT/monomer          
+     &                       *st/(vsol*vpol)* !hfactor*          ! st in kT/monomer          
      &                       Xulist_value(3, iC, jj)*
 !     &                       Xulist_value(ii, iC, jj)*
      &                       xtotal(ii, Xulist_cell(ii, iC, jj)))
@@ -254,18 +254,18 @@ C-----------------------------------------------------
 
                  if(aveP(jp,iC).gt.0) then
                  if(jp.eq.1) then
-                 apair = dexp(pairst*hfactor)-0.5
-                 bpair=2*dexp(pairst*hfactor)-1+1/pairsize/aveP(jp,iC)
-                 cpair = dexp(pairst*hfactor)
+                 apair = dexp(pairst)-0.5
+                 bpair=2*dexp(pairst)-1+1/pairsize/aveP(jp,iC)
+                 cpair = dexp(pairst)
                  Rpair(jp,iC) =
      &                (bpair-sqrt(bpair**2-4*apair*cpair))/apair/2
                  Fpair(jp,iC) = dlog(1-Rpair(jp,iC))
      &               -dlog(1-pairsize*aveP(jp,iC)*(1-0.5*Rpair(jp,iC)))
                  xpot(im,iC)=xpot(im,iC)-Fpair(jp,iC)
                  else if(jp.eq.2) then
-                 apair = dexp(pairst2*hfactor)-0.5
-                 bpair=2*dexp(pairst2*hfactor)-1+1/pairsize2/aveP(jp,iC)
-                 cpair = dexp(pairst2*hfactor)
+                 apair = dexp(pairst2)-0.5
+                 bpair=2*dexp(pairst2)-1+1/pairsize2/aveP(jp,iC)
+                 cpair = dexp(pairst2)
                  Rpair(jp,iC) =
      &                (bpair-sqrt(bpair**2-4*apair*cpair))/apair/2
                  Fpair(jp,iC) = dlog(1-Rpair(jp,iC))
@@ -310,7 +310,7 @@ C-----------------------------------------------------
 
          enddo ! j
             
-            pro = dexp(lnpro)*pbias(ii,i)
+            pro = dexp(lnpro) !*pbias(ii,i)
            ! lnpro = dlog(pro)
 
             q=q+pro

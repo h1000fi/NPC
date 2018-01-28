@@ -85,18 +85,18 @@
         enddo
         if(rank.eq.0)print*, 'lengths of Nups:', unilong(:)
 
-        do ii = 1, kk-1
-          write(filenameCG,'(A15,I4.4,A4)')
-     &    'polymer_coarse_',unilong(ii),'.txt'
-
-          open(unit=3110+ii,file=filenameCG)
-          write(3110+ii, *), unilong(ii)
-          do jj=1,unilong(ii)
-              write(3110+ii, *), segtype(ii,jj)
-          enddo
-
-          close(3110+ii)
-        end do
+!        do ii = 1, kk-1
+!          write(filenameCG,'(A15,I4.4,A4)')
+!     &    'polymer_coarse_',unilong(ii),'.txt'
+!
+!          open(unit=3110+ii,file=filenameCG)
+!          write(3110+ii, *), unilong(ii)
+!          do jj=1,unilong(ii)
+!              write(3110+ii, *), segtype(ii,jj) !segtype output bug
+!          enddo
+!
+!          close(3110+ii)
+!        end do
 
         end
 
@@ -114,8 +114,8 @@ C*************************************************************
       character(1) aacode
 
       write(filename1,'(A15,I4.4, A4)') 'polymer_aaCode_',long(i),'.txt'
-      write(filename2,'(A15,I4.4,A5,I2.2,A4)')
-     &    'polymer_coarse_',long(i),'chain',i,'.txt'
+      write(filename2,'(A5,I4.4,A6,I4.4,A4)')
+     &    'chain',i,'length',long(i),'.txt'
 
       open(unit=2110+i,file=filename1)
       open(unit=1110+i,file=filename2)

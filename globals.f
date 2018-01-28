@@ -449,7 +449,7 @@
 ! chains
 
         ALLOCATE (fs(cuantas))
-        ALLOCATE (pbias(N_chains,cuantas))        
+!        ALLOCATE (pbias(N_chains,cuantas))        
         ALLOCATE (displ(cuantas, int(maxlong/2)))
         ALLOCATE (endtoend(cuantas))
 
