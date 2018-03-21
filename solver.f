@@ -31,12 +31,12 @@ C---------------------------------------------
       common /psize/ neq ! Kinsol
       external fcn
 
-
       real*8 x1((2+N_poorsol)*ncells)
       real*8 xg1((2+N_poorsol)*ncells)
       real*8 xflag((2+N_poorsol)*ncells)
       real*8 xflag2((2+N_poorsol)*ncells)
       real*8 f((2+N_poorsol)*ncells)
+      character*100 time
 
 ! JEFE
 
@@ -44,7 +44,12 @@ C---------------------------------------------
 
           iter = 0
           print*, 'Enter Solver ', ncells*(2+N_poorsol), ' equations.'
-            
+
+          write(time,'(A16)') 'Enter_Solver.txt'
+
+          open(unit=4110,file=time)
+          write(4110, *), "time to enter solver, check the timestamp"
+          close(4110)        
 
           if(infile.ne.5) then       
              call call_kinsol(x1, xg1, ier)

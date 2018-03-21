@@ -91,7 +91,11 @@
 ! Check collision with protein...
 
          do j = 1, long(ii)
-         if(proteinC(chains(i,j)).ne.0.0)goto 200 ! collides with protein, don't use this chain
+!        if(proteinC(chains(i,j)).ne.0.0)goto 200 ! collides with protein, don't use this chain
+         if(proteinC(chains(i,j)).ne.0.0) then
+           il = il + 1
+           goto 200
+         endif
          enddo
 
 !         if(long(ii).gt.600) then

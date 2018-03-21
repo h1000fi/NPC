@@ -48,9 +48,9 @@
 !      st_matrix(3,4)= kaiHI
 !      st_matrix(4,3)= kaiHI
 
-      henergy(1) =  pairst !pairst !st_matrix(1,1)
+      henergy(1) =  0 !pairst !pairst !st_matrix(1,1)
       henergy(2) =  0
-      henergy(3) =  kaiHO !kaiHI !st_matrix(1,2)
+      henergy(3) =  0 !kaiHO !kaiHI !st_matrix(1,2)
 !      henergy(4) =  0
 
 ! set any number if zpol = 0....

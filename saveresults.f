@@ -169,7 +169,7 @@ C----------------------------------------------------------
 !
 !      enddo
 !
-!      write(title,'(A3, I2.2)')'cha',ii
+!      write(title,'(A2, I3.3)')'ch',ii
 !      call savetodisk(avpol_temp, title, cc ,ccc)
 !
 !      enddo
