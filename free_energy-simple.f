@@ -22,11 +22,11 @@
       real*8 sumfcargo
       real*8 F_Mix_OHmin, F_Conf, F_Conf_temp                     
       real*8  F_Conf2, F_Conf_temp2                               
-     & , F_Eq, F_Eq_P, F_vdW, F_eps, F_electro, F_pair                 
+     & , F_Eq, F_Eq_P, F_vdW, F_eps, F_electro, F_pair, F_pair2        
                                                                   
       real*8 counter, counter2                                    
                                                                   
-      integer iC, ii, iiC, i, jj, im, iii                              
+      integer iC, ii, iiC, i, jj, im, iii, jp                          
       real*8 avpol_monom(N_monomer, dimR*dimZ)    
       real*8 avpol_hydroph(N_poorsol, dimR*dimZ)    
       real*8 q0(N_chains), sumprolnpro0(N_chains)
@@ -298,13 +298,34 @@ c! 11. Protein-sup
 
       F_pair = 0.0
 
+      do iC = 1, ncells
+      do jp = 1, 2
+      F_pair = F_pair + (xtotal2(jp,iC)*(Fpair(jp,iC)+1)
+     &     +Fpair_tot(jp,iC))*
+     & (dfloat(indexa(iC,1))-0.5)*2.0*pi
+     & *(delta**3)/(vpol*vsol)
+      enddo ! jp
+      enddo ! iC
+
+      Free_Energy = Free_Energy + F_pair
+
+      F_pair2 = 0.0
+
+      do iC = 1, ncells
+      do jp = 1, 2
+      F_pair2 = F_pair2 + (xtotal2(jp,iC)+Fpair_tot(jp,iC))*
+     & (dfloat(indexa(iC,1))-0.5)*2.0*pi
+     & *(delta**3)/(vpol*vsol)
+      enddo ! jp
+      enddo ! iC
+
 !      do iC = 1, ncells
 !      F_pair = F_pair - xtotal2(1,iC)*Fpair_tot(iC)*
 !     & (dfloat(indexa(iC,1))-0.5)*2.0*pi
 !     & *(delta**3)/(vpol*vsol)
 !      enddo ! iC
 
-      Free_Energy = Free_Energy + F_pair
+!      Free_Energy = Free_Energy + F_pair
 !
 
 c! 12. Chemical Equilibrium Particle                                             
@@ -400,7 +421,7 @@ c     & *(dfloat(indexa(iC,1))-0.5)*2*pi
          sumfcargo = (delta**3/vsol)*sumfcargo                        
  
          Free_Energy2 = sumpi + sumrho + sumel + sumfcargo         
-         Free_Energy2 = Free_Energy2 - F_vdW
+         Free_Energy2 = Free_Energy2 - F_vdW + F_pair2
                           
          do ii = 1, N_chains                                         
          Free_Energy2 = Free_Energy2 -

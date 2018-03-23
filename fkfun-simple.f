@@ -241,6 +241,7 @@ C-----------------------------------------------------
 
                  do jj = 1, nXu(jp, iC) ! loop over kai neighbors
                  avePnorm = avePnorm + Xulist_value(jp, iC, jj)
+     &                      *(1.0-proteinC(Xulist_cell(jp, iC, jj)))
 !     &                      *(dfloat(indexa(iC,1))-0.5)
                  if(Xulist_cell(jp, iC, jj).le.(ncells+2)) then
                  aveP(jp,iC) = aveP(jp,iC) +
@@ -249,8 +250,13 @@ C-----------------------------------------------------
      &                      (xtotal(jp, Xulist_cell(jp, iC, jj))))
                  end if
                  enddo
-                 aveP(jp,iC) = aveP(jp,iC)/avePnorm
+
+                 if(avePnorm.gt.0) then 
+                  aveP(jp,iC) = (1.0-proteinC(iC))*aveP(jp,iC)/avePnorm
 !                 aveP(jp,iC) = xtotal(jp,iC)  ! +decouple*xtotal(2,iC)
+                 else
+                  aveP(jp,iC) = 0.0
+                 endif
 
                  if(aveP(jp,iC).gt.0) then
                  if(jp.eq.1) then
@@ -261,6 +267,8 @@ C-----------------------------------------------------
      &                (bpair-sqrt(bpair**2-4*apair*cpair))/apair/2
                  Fpair(jp,iC) = dlog(1-Rpair(jp,iC))
      &               -dlog(1-pairsize*aveP(jp,iC)*(1-0.5*Rpair(jp,iC)))
+                 Fpair_tot(jp,iC) = 1/pairsize*
+     &                dlog(1-pairsize*aveP(jp,iC)*(1-0.5*Rpair(jp,iC)))
                  xpot(im,iC)=xpot(im,iC)-Fpair(jp,iC)
                  else if(jp.eq.2) then
                  apair = dexp(pairst2)-0.5
@@ -270,6 +278,8 @@ C-----------------------------------------------------
      &                (bpair-sqrt(bpair**2-4*apair*cpair))/apair/2
                  Fpair(jp,iC) = dlog(1-Rpair(jp,iC))
      &               -dlog(1-pairsize2*aveP(jp,iC)*(1-0.5*Rpair(jp,iC)))
+                 Fpair_tot(jp,iC) = 1/pairsize2*
+     &                dlog(1-pairsize2*aveP(jp,iC)*(1-0.5*Rpair(jp,iC)))
                  xpot(im,iC)=xpot(im,iC)-Fpair(jp,iC)
                  endif
                  endif
