@@ -49,7 +49,7 @@ install: all
 
 
 clean:	
-	@rm -f $(SRC:.f=.o) $(SRC:.f=.d) $(TARGET) *~
+	@rm -f $(SRC:.f=.o) $(SRC:.f=.d) $(TARGET) *~ *.mod
 
 realclean: clean
 	@rm -f .depend
