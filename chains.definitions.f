@@ -135,7 +135,12 @@ c          print*, 'nseq', nseq
                 segtype(i,j) = 1
               elseif(segtype(i,j-2).eq.1) then
                 segtype(i,j) = 5
-                segtype(i,j-2) = 1
+                segtype(i,j-2) = 3
+              elseif(segtype(i,j-1).eq.5) then
+                segtype(i,j) = 2
+              elseif(segtype(i,j-1).eq.1) then
+                segtype(i,j) = 2
+                segtype(i,j-1) = 5
               else
                 segtype(i,j) = 1
               endif
@@ -145,6 +150,9 @@ c          print*, 'nseq', nseq
             elseif((aacode.eq.'a').or.(aacode.eq.'l').or.
      &      (aacode.eq.'w').or.(aacode.eq.'i').or.(aacode.eq.'y')) then
               segtype(i,j) = 5
+              if((j.gt.1).and.(segtype(i,j-1).eq.1)) then
+                segtype(i,j-1) = 2
+              endif
             elseif((aacode.eq.'m').or.(aacode.eq.'s').or.
      &      (aacode.eq.'p').or.(aacode.eq.'v') .or.(aacode.eq.'g')) then
               segtype(i,j) = 6
@@ -164,21 +172,6 @@ c          print*, 'nseq', nseq
           enddo
 
           close(2110+i) 
-
-          do j=1,long(i)
-            if(((j+3).le.long(i)).and.((aatype(i,j).eq.'g'))
-     &      .and.(aatype(i,j+1).eq.'f')) then
-              if((aatype(i,j+2).eq.'l').and.(aatype(i,j+3).eq.'g')) then
-                segtype(i,j+1) = 2
-              elseif(aatype(i,j+3).eq.'f') then
-                segtype(i,j+1) = 3
-              endif              
-            endif
-            if(((j+3).le.long(i)).and.((aatype(i,j).eq.'f'))
-     &      .and.(aatype(i,j+2).eq.'f').and.(aatype(i,j+3).eq.'g')) then
-                segtype(i,j) = 3
-            endif
-          enddo
 
 !          write(filename2,'(A15,I4.4,A5,I2.2,A4)')
 !     &    'polymer_coarse_',long(i),'chain',i,'.txt'
